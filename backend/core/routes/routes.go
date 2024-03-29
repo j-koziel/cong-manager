@@ -20,12 +20,13 @@ func SetupRoutes(r *gin.Engine) *gin.Engine {
 	base.GET("/hello", hello.Hello)
 
 	// Meetings / Congregations
-	base.POST("/congregation/create", congregation.CreateCongregation)
-	base.DELETE("/congregation/delete", congregation.DeleteCongregation)
-
 	base.POST("/meetings", findmeetings.FindLocalMeetings)
+
+	base.GET("/congregation/:congregationId/information-board", middleware.Authenticate(), congregation.GetCongregationInformationBoard)
+	base.POST("/congregation/create", congregation.CreateCongregation)
 	base.POST("/congregation/send-verification-code", congregation.SendCongregationVerificationCode)
 	base.POST("/congregation/verify-phone", congregation.VerifyCongregationPhone)
+	base.DELETE("/congregation/delete", congregation.DeleteCongregation)
 
 	// Users
 	base.POST("/user/create", user.CreateUser)

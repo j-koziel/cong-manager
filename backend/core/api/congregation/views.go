@@ -151,3 +151,22 @@ func VerifyCongregationPhone(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusAccepted, gin.H{})
 }
+
+// This endpoint returns all the information board items for the current user
+func GetCongregationInformationBoard(ctx *gin.Context) {
+	congregationId := ctx.Param("congregationId")
+
+	db, _ := ctx.MustGet("db").(*gorm.DB)
+
+	var foundCong models.Congregation
+	queryResult := db.First(&foundCong, "id = ?", congregationId)
+
+	if queryResult.Error != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"informationBoard": foundCong.InformationBoard})
+}

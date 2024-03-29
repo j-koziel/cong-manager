@@ -12,6 +12,12 @@ import (
 	"gorm.io/gorm"
 )
 
+type InformationBoardItem struct {
+	Title    string `json:"title"`
+	Summary  string `json:"summary"`
+	FilePath string `json:"filePath" default:""`
+}
+
 type CongregationPhone struct {
 	Ext   string `json:"ext"`
 	Phone string `json:"phone"`
@@ -39,7 +45,8 @@ type Congregation struct {
 	// Should not be modified/retrieved directly. Only through GetPhones/SetPhones
 	PhoneNumbers datatypes.JSON `json:"phoneNumbers"`
 
-	Users []User `json:"users" gorm:"foreignKey:CongregationID"`
+	Users            []User                 `json:"users" gorm:"foreignKey:CongregationID"`
+	InformationBoard []InformationBoardItem `json:"informationBoard" default:"[]"` // not sure if the defualt value i put here is correct?
 }
 
 func (congregation *Congregation) SetPhones(phones []CongregationPhone) error {
