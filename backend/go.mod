@@ -8,7 +8,7 @@ require (
 	github.com/go-faker/faker/v4 v4.4.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	gorm.io/datatypes v1.2.0
-	gorm.io/gorm v1.25.8
+	gorm.io/gorm v1.25.9
 )
 
 require (
