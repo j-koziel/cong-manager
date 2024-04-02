@@ -15,7 +15,7 @@ import (
 type InformationBoardItem struct {
 	Title    string `json:"title"`
 	Summary  string `json:"summary"`
-	FilePath string `json:"filePath" default:""`
+	FilePath string `json:"filePath" default:""` // ok this is gonna have to be something else 💀😭
 }
 
 type CongregationPhone struct {

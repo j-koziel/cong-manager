@@ -4,6 +4,7 @@ import (
 	"backend/core/common"
 	"backend/core/db"
 	"backend/core/db/models"
+	"backend/core/services/security"
 	"fmt"
 	"net/http"
 
@@ -152,14 +153,20 @@ func VerifyCongregationPhone(ctx *gin.Context) {
 	ctx.JSON(http.StatusAccepted, gin.H{})
 }
 
-// This endpoint returns all the information board items for the current user
+// Returns all the information board items for the congregation of the current user
 func GetCongregationInformationBoard(ctx *gin.Context) {
-	congregationId := ctx.Param("congregationId")
-
 	db, _ := ctx.MustGet("db").(*gorm.DB)
 
+	// I wanted to put this line inside "GetCurrentUser" but had a weird ciruclar import issue
+	tokenPayload, _ := ctx.MustGet("jwtPayload").(*security.SessionTokenPayload)
+
+	// Get "Current" User
+	// *requires a user id*
+	// 👍
+	foundUser := common.GetCurrentUser(ctx, tokenPayload.UserID)
+
 	var foundCong models.Congregation
-	queryResult := db.First(&foundCong, "id = ?", congregationId)
+	queryResult := db.First(&foundCong, "id = ?", foundUser.CongregationID)
 
 	if queryResult.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -169,4 +176,40 @@ func GetCongregationInformationBoard(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"informationBoard": foundCong.InformationBoard})
+}
+
+func AddInformationBoardItem(ctx *gin.Context) {
+	var dto models.InformationBoardItem
+
+	err := common.BindAndValidate(ctx, dto)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,
+		})
+		return
+	}
+
+	tokenPayload, _ := ctx.MustGet("jwtPayload").(*security.SessionTokenPayload)
+	currentUser := common.GetCurrentUser(ctx, tokenPayload.UserID)
+
+	// If the current user is not an admin they should not be able to update the information board
+	if currentUser.Type != "ADMIN" {
+		ctx.JSON(http.StatusForbidden, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.AuthInvalid,
+		})
+	}
+
+	// Find the congregation and update the information board with the new information board item
+	db, _ := ctx.MustGet("db").(*gorm.DB)
+	var congregation models.Congregation
+	db.First(&congregation, "id = ", currentUser.CongregationID)
+
+	congregation.InformationBoard = append(congregation.InformationBoard, dto)
+
+	db.Save(&congregation)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "information board has been updated successfully",
+	})
 }

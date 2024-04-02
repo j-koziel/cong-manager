@@ -179,6 +179,7 @@ func VerifyToken(ctx *gin.Context) {
 // Get the current authenticated user
 func GetCurrentUser(ctx *gin.Context) {
 	db, _ := ctx.MustGet("db").(*gorm.DB)
+
 	// Get the first user that matches the ID
 	tokenPayload, _ := ctx.MustGet("jwtPayload").(*security.SessionTokenPayload)
 
