@@ -48,6 +48,8 @@ func CreateCongregation(ctx *gin.Context) {
 		return
 	}
 
+	// Create an empty information board
+	dto.InformationBoard = []models.InformationBoardItem{}
 	err = CreateCongregationInDB(&dto, ormDb)
 	if err != nil {
 		fmt.Println("[CreateCongregation] Error creating congregation in database.")
@@ -62,6 +64,10 @@ func CreateCongregation(ctx *gin.Context) {
 }
 
 func DeleteCongregation(ctx *gin.Context) {
+	/**
+	 * TODO: require a UserID and guard that the user is an admin
+	 */
+
 	var dto DeleteCongregationDTO
 	err := common.BindAndValidate(ctx, &dto)
 	if err != nil {
@@ -182,7 +188,6 @@ func AddInformationBoardItem(ctx *gin.Context) {
 	var dto models.InformationBoardItem
 
 	err := common.BindAndValidate(ctx, dto)
-
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,
@@ -198,12 +203,13 @@ func AddInformationBoardItem(ctx *gin.Context) {
 		ctx.JSON(http.StatusForbidden, gin.H{
 			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.AuthInvalid,
 		})
+		return
 	}
 
 	// Find the congregation and update the information board with the new information board item
 	db, _ := ctx.MustGet("db").(*gorm.DB)
 	var congregation models.Congregation
-	db.First(&congregation, "id = ", currentUser.CongregationID)
+	db.First(&congregation, "id = ?", currentUser.CongregationID)
 
 	congregation.InformationBoard = append(congregation.InformationBoard, dto)
 

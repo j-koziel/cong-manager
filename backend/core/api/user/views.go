@@ -275,7 +275,6 @@ func FindLocation(ctx *gin.Context) {
 	}
 
 	var cleanedLocationResults []LocationResult
-
 	for _, result := range response.Results {
 		cleanedLocationResults = append(cleanedLocationResults, LocationResult{Formatted: result.Formatted, City: result.Components.City, Region: result.Components.Region, Country: result.Components.Country, Geometry: result.Geometry})
 	}

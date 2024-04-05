@@ -13,9 +13,10 @@ import (
 )
 
 type InformationBoardItem struct {
-	Title    string `json:"title"`
-	Summary  string `json:"summary"`
-	FilePath string `json:"filePath" default:""` // ok this is gonna have to be something else 💀😭
+	Title   string `json:"title"`
+	Summary string `json:"summary"`
+
+	CongregationID *uint `json:"congregationId"`
 }
 
 type CongregationPhone struct {
@@ -46,7 +47,7 @@ type Congregation struct {
 	PhoneNumbers datatypes.JSON `json:"phoneNumbers"`
 
 	Users            []User                 `json:"users" gorm:"foreignKey:CongregationID"`
-	InformationBoard []InformationBoardItem `json:"informationBoard" default:"[]"` // not sure if the defualt value i put here is correct?
+	InformationBoard []InformationBoardItem `json:"informationBoard" gorm:"foreignKey:CongregationID"`
 }
 
 func (congregation *Congregation) SetPhones(phones []CongregationPhone) error {
