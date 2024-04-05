@@ -6,8 +6,8 @@ import (
 	"backend/core/middleware"
 	"backend/core/routes"
 	"fmt"
+	"strings"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -30,13 +30,31 @@ func main() {
 	models.SetupModels(db)
 
 	// Configuring CORS
-	config := cors.DefaultConfig()
-	config.AllowOrigins = envSecrets.CorsAllowOrigin
-	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
-	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
-	config.AllowCredentials = true
+	allowedOriginsMap := make(map[string]bool)
+	for _, origin := range envSecrets.CorsAllowOrigins {
+		allowedOriginsMap[origin] = true
+	}
 
-	r.Use(cors.New(config))
+	// Custom CORS middleware
+	r.Use(func(c *gin.Context) {
+		origin := c.GetHeader("Origin")
+
+		// Check if origin is explicitly allowed or contains "cm-core"
+		if _, ok := allowedOriginsMap[origin]; ok || strings.Contains(origin, "cm-core") {
+			c.Header("Access-Control-Allow-Origin", origin)
+			c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
+			c.Header("Access-Control-Allow-Headers", "Origin, Content-Length, Content-Type, Authorization")
+			c.Header("Access-Control-Allow-Credentials", "true")
+		}
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+
 	r.Use(middleware.DatabaseSession(db))
 
 	r = routes.SetupRoutes(r)
