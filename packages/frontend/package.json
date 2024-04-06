@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "static": "next build --no-lint"
   },
   "dependencies": {
+    "@capacitor/android": "^5.7.4",
+    "@capacitor/core": "^5.7.4",
     "@hookform/resolvers": "^3.3.2",
     "@nextui-org/react": "^2.2.9",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -49,5 +52,8 @@
     "tailwindcss": "3.3.5",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.7.4"
   }
 }
