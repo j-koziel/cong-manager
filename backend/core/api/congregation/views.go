@@ -4,7 +4,7 @@ import (
 	"backend/core/common"
 	"backend/core/db"
 	"backend/core/db/models"
-	"backend/core/services/security"
+	"backend/core/db/repositories"
 	"fmt"
 	"net/http"
 
@@ -163,13 +163,7 @@ func VerifyCongregationPhone(ctx *gin.Context) {
 func GetCongregationInformationBoard(ctx *gin.Context) {
 	db, _ := ctx.MustGet("db").(*gorm.DB)
 
-	// I wanted to put this line inside "GetCurrentUser" but had a weird ciruclar import issue
-	tokenPayload, _ := ctx.MustGet("jwtPayload").(*security.SessionTokenPayload)
-
-	// Get "Current" User
-	// *requires a user id*
-	// 👍
-	foundUser := common.GetCurrentUser(ctx, tokenPayload.UserID)
+	foundUser := repositories.GetCurrentUser(ctx)
 
 	var foundCong models.Congregation
 	queryResult := db.First(&foundCong, "id = ?", foundUser.CongregationID)
@@ -195,8 +189,7 @@ func AddInformationBoardItem(ctx *gin.Context) {
 		return
 	}
 
-	tokenPayload, _ := ctx.MustGet("jwtPayload").(*security.SessionTokenPayload)
-	currentUser := common.GetCurrentUser(ctx, tokenPayload.UserID)
+	currentUser := repositories.GetCurrentUser(ctx)
 
 	// If the current user is not an admin they should not be able to update the information board
 	if currentUser.Type != "ADMIN" {
