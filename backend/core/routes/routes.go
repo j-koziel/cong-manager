@@ -22,8 +22,8 @@ func SetupRoutes(r *gin.Engine) *gin.Engine {
 	// Meetings / Congregations
 	base.POST("/meetings", findmeetings.FindLocalMeetings)
 
-	base.GET("/congregation/:congregationId/information-board", middleware.Authenticate(), congregation.GetCongregationInformationBoard)
-	base.POST("/congregation/:congregationId/information-board", middleware.Authenticate(), congregation.AddInformationBoardItem)
+	base.GET("/congregation/information-board", middleware.Authenticate(), congregation.GetCongregationInformationBoard)
+	base.POST("/congregation/information-board", middleware.Authenticate(), congregation.AddInformationBoardItem)
 	base.POST("/congregation/create", congregation.CreateCongregation)
 	base.POST("/congregation/send-verification-code", congregation.SendCongregationVerificationCode)
 	base.POST("/congregation/verify-phone", congregation.VerifyCongregationPhone)

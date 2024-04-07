@@ -33,18 +33,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  NewInformationBoardItemFormData,
+  newInformationBoardItemFormSchema,
+} from "@/lib/types/dashboard";
 import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data";
 
-const formSchema = z.object({
-  // We can discuss what other things it could or could not be
-  type: z.enum(["Announcement", "Information", "Event", ""]),
-  summary: z.optional(z.string()),
-  file: z.optional(z.instanceof(File)),
-});
-
 const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<NewInformationBoardItemFormData>({
+    resolver: zodResolver(newInformationBoardItemFormSchema),
     defaultValues: {
       type: "",
       summary: undefined,
@@ -52,7 +49,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: NewInformationBoardItemFormData) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
@@ -65,7 +62,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
           <div>
             <CardTitle>Information Board: </CardTitle>
             <CardDescription>
-              Here are any recent congregation announcements.
+              Here is the congregation information board
             </CardDescription>
           </div>
 
@@ -77,10 +74,11 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add a congregation announcement</DialogTitle>
+                <DialogTitle>
+                  Add something to the information board
+                </DialogTitle>
                 <DialogDescription>
-                  Add a new announcement to the information board for your
-                  congregation
+                  Add a new item to the information board for your congregation
                 </DialogDescription>
                 <Form {...form}>
                   <form
