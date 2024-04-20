@@ -181,7 +181,7 @@ func GetCongregationInformationBoard(ctx *gin.Context) {
 func AddInformationBoardItem(ctx *gin.Context) {
 	var dto models.InformationBoardItem
 
-	err := common.BindAndValidate(ctx, dto)
+	err := common.BindAndValidate(ctx, &dto)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,

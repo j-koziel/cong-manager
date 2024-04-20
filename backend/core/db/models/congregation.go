@@ -47,7 +47,7 @@ type Congregation struct {
 	PhoneNumbers datatypes.JSON `json:"phoneNumbers"`
 
 	Users            []User                 `json:"users" gorm:"foreignKey:CongregationID"`
-	InformationBoard []InformationBoardItem `json:"informationBoard" gorm:"foreignKey:CongregationID"`
+	InformationBoard []InformationBoardItem `json:"informationBoard" gorm:"type:jsonb;default:'[]'"`
 }
 
 func (congregation *Congregation) SetPhones(phones []CongregationPhone) error {

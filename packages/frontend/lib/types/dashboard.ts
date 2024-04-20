@@ -12,6 +12,6 @@ export const newInformationBoardItemFormSchema = z.object({
 });
 
 export type GenerateTokenFormData = z.infer<typeof generateTokenFormSchema>;
-export type NewInformationBoardItemFormData = z.infer<
+export type InformationBoardItem = z.infer<
   typeof newInformationBoardItemFormSchema
 >;

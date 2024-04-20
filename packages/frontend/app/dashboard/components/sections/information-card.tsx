@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { z } from "zod";
 
 import ItemCards from "../item-cards";
@@ -33,14 +34,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { AppDispatch, RootState } from "@/lib/stores/app-store";
+import { addInformationBoardItemThunk } from "@/lib/stores/thunks/add-information-board-item";
 import {
-  NewInformationBoardItemFormData,
+  InformationBoardItem,
   newInformationBoardItemFormSchema,
 } from "@/lib/types/dashboard";
 import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data";
 
 const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
-  const form = useForm<NewInformationBoardItemFormData>({
+  const form = useForm<InformationBoardItem>({
     resolver: zodResolver(newInformationBoardItemFormSchema),
     defaultValues: {
       type: "",
@@ -49,10 +52,14 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
     },
   });
 
-  function onSubmit(values: NewInformationBoardItemFormData) {
+  const dispatch: AppDispatch = useDispatch();
+  const state = useSelector((state: RootState) => state.informationBoard);
+
+  async function onSubmit(values: InformationBoardItem) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    dispatch(addInformationBoardItemThunk(values));
   }
 
   return (
@@ -88,7 +95,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                     <FormField
                       control={form.control}
                       name="type"
-                      render={(field) => (
+                      render={({ field }) => (
                         <FormItem>
                           <FormLabel>Type:</FormLabel>
                           <FormControl>
@@ -104,7 +111,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                     <FormField
                       control={form.control}
                       name="summary"
-                      render={(field) => (
+                      render={({ field }) => (
                         <FormItem>
                           <FormLabel>Summary:</FormLabel>
                           <FormControl>
@@ -120,7 +127,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                     <FormField
                       control={form.control}
                       name="file"
-                      render={(field) => (
+                      render={({ field }) => (
                         <FormItem>
                           <FormLabel>File:</FormLabel>
                           <FormControl>
@@ -129,6 +136,7 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                         </FormItem>
                       )}
                     />
+                    <Button type="submit">Add</Button>
                   </form>
                 </Form>
               </DialogHeader>
