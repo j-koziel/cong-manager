@@ -12,6 +12,10 @@ export const newInformationBoardItemFormSchema = z.object({
 });
 
 export const informationBoardItemSchema = z.object({
+  ID: z.number().min(0),
+  CreatedAt: z.string(),
+  UpdatedAt: z.string(),
+  DeletedAt: z.string().nullable(),
   type: z.enum(["Announcement", "Information", "Event"]),
   summary: z.string(),
   congregationId: z.number().min(0),

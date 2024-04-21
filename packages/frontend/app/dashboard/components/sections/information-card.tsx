@@ -91,9 +91,8 @@ const InformationCard = () => {
         description: "The information board could not be loaded",
         variant: "destructive",
       });
+      return;
     }
-
-    return;
   }, []);
 
   return (

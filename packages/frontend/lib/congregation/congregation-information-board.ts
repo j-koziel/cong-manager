@@ -8,16 +8,18 @@ import {
   NewInformationBoardItem,
 } from "../types/dashboard";
 
-export async function addInformationBoardItem(item: NewInformationBoardItem) {
-  try {
-    await axios.post(
-      backendRoutes.congregation.informationBoard.add,
-      item,
-      requestOptions(),
-    );
-  } catch (err) {
-    throw err;
-  }
+/**
+ * Takes in a new information board item and sends it to the API
+ * @param item The new information board item to be added
+ */
+export async function addInformationBoardItem(
+  item: NewInformationBoardItem,
+): Promise<void> {
+  await axios.post(
+    backendRoutes.congregation.informationBoard.add,
+    item,
+    requestOptions(),
+  );
 }
 
 /**
@@ -33,11 +35,7 @@ export async function getCongInformationBoardItems(): Promise<
 
   const parsedData: InformationBoardItem[] = res.data.informationBoard.map(
     (informationBoardItem: InformationBoardItem) => {
-      return informationBoardItem;
-
-      // return informationBoardItemSchema.parse(informationBoardItem);
-      // I dont know why this doesnt work
-      // At this point im too scared to find out why
+      return informationBoardItemSchema.parse(informationBoardItem);
     },
   );
 

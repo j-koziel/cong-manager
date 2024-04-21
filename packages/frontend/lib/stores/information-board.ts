@@ -38,7 +38,6 @@ export const informationBoardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCongInformationBoardItemsThunk.fulfilled, (state, action) => {
-        console.log("the promise is fulfilled");
         state.informationBoard = action.payload;
         state.isLoading = false;
       })

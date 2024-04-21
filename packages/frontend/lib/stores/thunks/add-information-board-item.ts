@@ -14,7 +14,7 @@ export const addInformationBoardItemThunk = createAsyncThunk<
     try {
       await addInformationBoardItem({ type, summary, congregationId });
     } catch (err) {
-      rejectWithValue(handleThunkError(err));
+      return rejectWithValue(handleThunkError(err));
     }
   },
 );
