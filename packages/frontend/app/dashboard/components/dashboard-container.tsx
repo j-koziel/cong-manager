@@ -27,7 +27,7 @@ export function Dashboard() {
 
   React.useEffect(() => {
     dispatch(getCurrentUserThunk());
-  }, [dispatch]);
+  }, []);
 
   React.useEffect(() => {
     if (!state.didError) {
@@ -35,7 +35,7 @@ export function Dashboard() {
     }
 
     router.replace("/login");
-  }, [state.didError, router]);
+  }, []);
 
   // Map of user type to dashboard component
   const userTypeMap: Record<

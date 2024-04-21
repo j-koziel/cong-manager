@@ -7,6 +7,10 @@ export const backendRoutes = {
     sendVerificationCode:
       baseBackendUrl + "/congregation/send-verification-code",
     verifyPhone: baseBackendUrl + "/congregation/verify-phone",
+    informationBoard: {
+      add: baseBackendUrl + "/congregation/information-board",
+      get: baseBackendUrl + "/congregation/information-board",
+    },
   },
   user: {
     create: baseBackendUrl + "/user/create",

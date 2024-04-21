@@ -5,12 +5,14 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    container_name: backend
     ports:
       - "8080:8080"
     volumes:
       - ./backend:/root/app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/hello"]
       interval: 10s
@@ -22,6 +24,7 @@ services:
       CORS_ALLOW_ORIGIN: http://localhost:3000 http://localhost:8000
 
   db:
+    container_name: db
     image: postgres:latest
     environment:
       POSTGRES_DB: cms-db
@@ -32,6 +35,6 @@ services:
       - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
-      interval: 5s
+      interval: 2s
       timeout: 5s
       retries: 5

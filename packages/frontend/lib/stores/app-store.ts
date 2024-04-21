@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { dashboardSlice } from "./dashboard/dashboard";
 import { dashboardToolbarSlice } from "./dashboard/toolbar";
+import { informationBoardSlice } from "./information-board";
 import { meetingsSlice } from "./local-meetings";
 import { locationSearchSlice } from "./location-search";
 import { userRegistrationSlice } from "./register-user";
@@ -14,6 +15,7 @@ export const makeStore = () => {
       userRegistration: userRegistrationSlice.reducer,
       dashboard: dashboardSlice.reducer,
       dashboardToolbar: dashboardToolbarSlice.reducer,
+      informationBoard: informationBoardSlice.reducer,
     },
   });
 };

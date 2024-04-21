@@ -4,6 +4,7 @@ import (
 	"backend/core/common"
 	"backend/core/db"
 	"backend/core/db/models"
+	"backend/core/db/repositories"
 	"fmt"
 	"net/http"
 
@@ -47,6 +48,8 @@ func CreateCongregation(ctx *gin.Context) {
 		return
 	}
 
+	// Create an empty information board
+	dto.InformationBoard = []models.InformationBoardItem{}
 	err = CreateCongregationInDB(&dto, ormDb)
 	if err != nil {
 		fmt.Println("[CreateCongregation] Error creating congregation in database.")
@@ -61,6 +64,10 @@ func CreateCongregation(ctx *gin.Context) {
 }
 
 func DeleteCongregation(ctx *gin.Context) {
+	/**
+	 * TODO: require a UserID and guard that the user is an admin
+	 */
+
 	var dto DeleteCongregationDTO
 	err := common.BindAndValidate(ctx, &dto)
 	if err != nil {
@@ -150,4 +157,53 @@ func VerifyCongregationPhone(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusAccepted, gin.H{})
+}
+
+// Returns all the information board items for the congregation of the current user
+func GetCongregationInformationBoard(ctx *gin.Context) {
+	db, _ := ctx.MustGet("db").(*gorm.DB)
+
+	foundUser := repositories.GetCurrentUser(ctx)
+
+	var foundInformationBoardItems []models.InformationBoardItem
+	queryResult := db.Find(&foundInformationBoardItems, "congregation_id = ?", foundUser.CongregationID)
+
+	if queryResult.Error != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"informationBoard": foundInformationBoardItems})
+}
+
+func AddInformationBoardItem(ctx *gin.Context) {
+	var dto models.InformationBoardItem
+
+	err := common.BindAndValidate(ctx, &dto)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.Unknown,
+		})
+		return
+	}
+
+	currentUser := repositories.GetCurrentUser(ctx)
+
+	// If the current user is not an admin they should not be able to update the information board
+	if currentUser.Type != "ADMIN" {
+		ctx.JSON(http.StatusForbidden, gin.H{
+			common.UserErrorInstance.UserErrKey: common.UserErrorInstance.AuthInvalid,
+		})
+		return
+	}
+
+	// Find the congregation and update the information board with the new information board item
+	db, _ := ctx.MustGet("db").(*gorm.DB)
+	CreateInformationBoardItem(&dto, db)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "information board has been updated successfully",
+	})
 }
