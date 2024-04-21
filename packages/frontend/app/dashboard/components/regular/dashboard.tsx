@@ -45,7 +45,7 @@ export function UserDashboard({ currentUser }: DashboardComponentProps) {
         />
       ),
       () => <MeetingDutiesCard data={placeholderDuties} />,
-      () => <InformationCard data={placeholderInformationBoard} />,
+      () => <InformationCard />,
       () => <CongEventsCard data={placeholderCongEvents} />,
       () => <PublicWitnessingCard />,
     ];
