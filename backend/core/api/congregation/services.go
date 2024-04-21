@@ -95,3 +95,13 @@ func CreateVerificationCode(dto SendCongregationVerificationCodeDTO, db *gorm.DB
 
 	return verificationCode, nil
 }
+
+func CreateInformationBoardItem(informationBoardItem *models.InformationBoardItem, db *gorm.DB) error {
+	result := db.Create(informationBoardItem)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}

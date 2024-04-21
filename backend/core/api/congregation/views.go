@@ -165,8 +165,8 @@ func GetCongregationInformationBoard(ctx *gin.Context) {
 
 	foundUser := repositories.GetCurrentUser(ctx)
 
-	var foundCong models.Congregation
-	queryResult := db.First(&foundCong, "id = ?", foundUser.CongregationID)
+	var foundInformationBoardItems []models.InformationBoardItem
+	queryResult := db.Find(&foundInformationBoardItems, "congregation_id = ?", foundUser.CongregationID)
 
 	if queryResult.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -175,7 +175,7 @@ func GetCongregationInformationBoard(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"informationBoard": foundCong.InformationBoard})
+	ctx.JSON(http.StatusOK, gin.H{"informationBoard": foundInformationBoardItems})
 }
 
 func AddInformationBoardItem(ctx *gin.Context) {
@@ -201,12 +201,7 @@ func AddInformationBoardItem(ctx *gin.Context) {
 
 	// Find the congregation and update the information board with the new information board item
 	db, _ := ctx.MustGet("db").(*gorm.DB)
-	var congregation models.Congregation
-	db.First(&congregation, "id = ?", currentUser.CongregationID)
-
-	congregation.InformationBoard = append(congregation.InformationBoard, dto)
-
-	db.Save(&congregation)
+	CreateInformationBoardItem(&dto, db)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "information board has been updated successfully",

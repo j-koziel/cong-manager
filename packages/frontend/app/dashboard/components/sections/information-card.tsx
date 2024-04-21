@@ -1,12 +1,11 @@
 "use client";
 
+import React from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { z } from "zod";
-
-import ItemCards from "../item-cards";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +23,7 @@ import {
   DialogTitle,
   DialogHeader,
   DialogDescription,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -34,33 +34,67 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+  SelectContent,
+} from "@/components/ui/select";
+import { toast } from "@/components/ui/use-toast";
 import { AppDispatch, RootState } from "@/lib/stores/app-store";
 import { addInformationBoardItemThunk } from "@/lib/stores/thunks/add-information-board-item";
+import { getCongInformationBoardItemsThunk } from "@/lib/stores/thunks/get-cong-information-board";
 import {
-  InformationBoardItem,
+  NewInformationBoardItem,
   newInformationBoardItemFormSchema,
 } from "@/lib/types/dashboard";
-import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data";
 
-const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
-  const form = useForm<InformationBoardItem>({
+/**
+ * A card displaying all the information board items,
+ * things like announcements, events and other important information.
+ */
+const InformationCard = () => {
+  const informationBoardState = useSelector(
+    (state: RootState) => state.informationBoard,
+  );
+  const dashState = useSelector((state: RootState) => state.dashboard);
+
+  const form = useForm<NewInformationBoardItem>({
     resolver: zodResolver(newInformationBoardItemFormSchema),
     defaultValues: {
-      type: "",
+      type: "Announcement",
       summary: undefined,
-      file: undefined,
+      congregationId: dashState.currentUser?.congregationId,
     },
   });
 
   const dispatch: AppDispatch = useDispatch();
-  const state = useSelector((state: RootState) => state.informationBoard);
 
-  async function onSubmit(values: InformationBoardItem) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: NewInformationBoardItem) {
     dispatch(addInformationBoardItemThunk(values));
+    form.reset({
+      type: "Announcement",
+      summary: undefined,
+      congregationId: dashState.currentUser?.congregationId,
+    });
   }
+
+  React.useEffect(() => {
+    dispatch(getCongInformationBoardItemsThunk());
+  }, []);
+
+  React.useEffect(() => {
+    if (informationBoardState.didError) {
+      toast({
+        title: "An error has occurred",
+        description: "The information board could not be loaded",
+        variant: "destructive",
+      });
+    }
+
+    return;
+  }, []);
 
   return (
     <Card>
@@ -98,13 +132,25 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Type:</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="text"
-                              placeholder="Announcement"
-                              {...field}
-                            />
-                          </FormControl>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select the type of information this will be" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="Announcement">
+                                Announcement
+                              </SelectItem>
+                              <SelectItem value="Event">Event</SelectItem>
+                              <SelectItem value="Information">
+                                Information
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
                         </FormItem>
                       )}
                     />
@@ -124,18 +170,6 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="file"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>File:</FormLabel>
-                          <FormControl>
-                            <Input type="file" {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
                     <Button type="submit">Add</Button>
                   </form>
                 </Form>
@@ -144,10 +178,19 @@ const InformationCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
           </Dialog>
         </div>
       </CardHeader>
-      {/* Probably put some links to docs here...? */}
       <CardContent>
         <ScrollArea className="h-72">
-          <ItemCards data={data} />
+          {informationBoardState.informationBoard.length &&
+            informationBoardState.informationBoard.map((item, i) => (
+              <Card key={i}>
+                <CardHeader>
+                  <CardTitle>{item.type}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <span>{item.summary}</span>
+                </CardContent>
+              </Card>
+            ))}
           <ScrollBar />
         </ScrollArea>
       </CardContent>

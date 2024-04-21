@@ -13,7 +13,8 @@ import (
 )
 
 type InformationBoardItem struct {
-	Title   string `json:"title"`
+	gorm.Model
+	Type    string `json:"type"`
 	Summary string `json:"summary"`
 
 	CongregationID *uint `json:"congregationId"`
@@ -47,7 +48,7 @@ type Congregation struct {
 	PhoneNumbers datatypes.JSON `json:"phoneNumbers"`
 
 	Users            []User                 `json:"users" gorm:"foreignKey:CongregationID"`
-	InformationBoard []InformationBoardItem `json:"informationBoard" gorm:"type:jsonb;default:'[]'"`
+	InformationBoard []InformationBoardItem `json:"informationBoard" gorm:"foreignKey:CongregationID"`
 }
 
 func (congregation *Congregation) SetPhones(phones []CongregationPhone) error {

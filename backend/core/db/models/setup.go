@@ -8,5 +8,6 @@ func SetupModels(db *gorm.DB) {
 		&Congregation{},
 		&Token{},
 		&CongregationVerificationCode{},
+		&InformationBoardItem{},
 	)
 }

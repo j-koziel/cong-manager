@@ -8,10 +8,17 @@ export const newInformationBoardItemFormSchema = z.object({
   // We can discuss what other things it could or could not be
   type: z.enum(["Announcement", "Information", "Event", ""]),
   summary: z.optional(z.string()),
-  file: z.optional(z.instanceof(File)),
+  congregationId: z.number().min(0).nullable(),
+});
+
+export const informationBoardItemSchema = z.object({
+  type: z.enum(["Announcement", "Information", "Event"]),
+  summary: z.string(),
+  congregationId: z.number().min(0),
 });
 
 export type GenerateTokenFormData = z.infer<typeof generateTokenFormSchema>;
-export type InformationBoardItem = z.infer<
+export type InformationBoardItem = z.infer<typeof informationBoardItemSchema>;
+export type NewInformationBoardItem = z.infer<
   typeof newInformationBoardItemFormSchema
 >;

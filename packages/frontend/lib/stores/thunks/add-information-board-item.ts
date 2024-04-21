@@ -3,16 +3,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleThunkError } from "../errors";
 
 import { addInformationBoardItem } from "@/lib/congregation/congregation-information-board";
-import { InformationBoardItem } from "@/lib/types/dashboard";
+import { NewInformationBoardItem } from "@/lib/types/dashboard";
 
 export const addInformationBoardItemThunk = createAsyncThunk<
   void,
-  InformationBoardItem
+  NewInformationBoardItem
 >(
   "dashboard/addInformationBoardItem",
-  async ({ type, summary, file }, { rejectWithValue }) => {
+  async ({ type, summary, congregationId }, { rejectWithValue }) => {
     try {
-      await addInformationBoardItem({ type, summary, file });
+      await addInformationBoardItem({ type, summary, congregationId });
     } catch (err) {
       rejectWithValue(handleThunkError(err));
     }

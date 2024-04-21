@@ -9,6 +9,7 @@ export const backendRoutes = {
     verifyPhone: baseBackendUrl + "/congregation/verify-phone",
     informationBoard: {
       add: baseBackendUrl + "/congregation/information-board",
+      get: baseBackendUrl + "/congregation/information-board",
     },
   },
   user: {

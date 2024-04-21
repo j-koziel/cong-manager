@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { InformationBoardItem } from "../types/dashboard";
 
+import { getCongInformationBoardItemsThunk } from "./thunks/get-cong-information-board";
+
 import { addInformationBoardItemThunk } from "@/lib/stores/thunks/add-information-board-item";
 
 export interface InformationBoardState {
@@ -29,6 +31,18 @@ export const informationBoardSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addInformationBoardItemThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.didError = true;
+      })
+      .addCase(getCongInformationBoardItemsThunk.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCongInformationBoardItemsThunk.fulfilled, (state, action) => {
+        console.log("the promise is fulfilled");
+        state.informationBoard = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getCongInformationBoardItemsThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.didError = true;
       });
