@@ -1,3 +1,11 @@
+/**
+ * A common component which displays article sections
+ *
+ * @param props - The props object
+ * @param props.sectionHeading - The heading of the article section
+ * @param props.sectionText - The content of the section
+ * @returns
+ */
 export function ArticleSection({
   sectionHeading,
   sectionText,

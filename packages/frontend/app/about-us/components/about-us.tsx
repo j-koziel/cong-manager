@@ -5,6 +5,12 @@ import { ArticleSection } from "./article-section";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+/**
+ * A page which adds some context behind this project and why it was made.
+ * There is also a section where people can contact us if they have any
+ * queries
+ * @returns An informative article
+ */
 export function AboutUs() {
   return (
     <article className="w-full text-center">
