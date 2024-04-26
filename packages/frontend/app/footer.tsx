@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 
 /**
  * A simple footer with some links
- * 
+ *
  * @returns The footer component
  */
 export function Footer(): JSX.Element {

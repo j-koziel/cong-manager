@@ -32,8 +32,9 @@ import {
 import { RootState } from "@/lib/stores/app-store";
 
 /**
- * A form which lets the user pick a phone number and then enter a code which was sent to that number to verify that the number is correct
- * 
+ * A form which lets the user pick a phone number and then enter a
+ * code which was sent to that number to verify that the number is correct
+ *
  * @returns A form where the user verifies the congregation phone number
  */
 export function PhoneNumberCheck() {

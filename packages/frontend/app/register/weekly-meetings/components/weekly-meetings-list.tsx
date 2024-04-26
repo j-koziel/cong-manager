@@ -24,8 +24,9 @@ const { setSelectedCongregation, setDisplayCongregations } =
   meetingsSlice.actions;
 
 /**
- * Reads the displayCongregations state and renders MeetingCard's for each congregation
- * 
+ * Reads the displayCongregations state and renders MeetingCard's
+ * for each congregation
+ *
  * @returns A list of weekly meetings (congregations)
  */
 export function WeeklyMeetingsList() {

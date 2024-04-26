@@ -36,8 +36,9 @@ import {
 import { userTypeSchema } from "@/lib/types/models/user";
 
 /**
- * A form where users can create new accounts and choose whether they are admins (congregation elders) or just normal users (publishers)
- * 
+ * A form where users can create new accounts and choose whether they are
+ * admins (congregation elders) or just normal users (publishers)
+ *
  * @returns A form for users to register new accounts
  */
 export function RegisterForm() {

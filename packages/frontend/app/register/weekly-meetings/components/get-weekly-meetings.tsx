@@ -25,8 +25,11 @@ const DynamicMapView = dynamic(
 const { regroupCongregations, setDisplayCongregations } = meetingsSlice.actions;
 
 /**
- * Fetches weekly meetings for the provided latitude and longitude coordinates from the JW.org API. Renders a list of weekly meetings that the user can select and redirects to the phone number verification once a congregation is selected
- * 
+ * Fetches weekly meetings for the provided latitude and longitude
+ * coordinates from the JW.org API. Renders a list of weekly meetings
+ * that the user can select and redirects to the phone number verification
+ * once a congregation is selected
+ *
  * @returns A list of weekly meetings that the user can select
  */
 export function GetWeeklyMeetings() {
