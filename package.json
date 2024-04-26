@@ -17,6 +17,9 @@
     "typescript": "^5.0.0"
   },
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "frontend": "cd packages/frontend && bun dev",
     "lint": "eslint ./packages --fix"
