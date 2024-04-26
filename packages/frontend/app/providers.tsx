@@ -7,6 +7,12 @@ import StoreProvider from "./store-provider";
 
 import { Toaster } from "@/components/ui/toaster";
 
+/**
+ * All the different providers that are being used for dark mode, theming and redux
+ * 
+ * @param children The rest of the site to be rendered
+ * @returns 
+ */
 export function Providers({ children }: React.PropsWithChildren<{}>) {
   return (
     <StoreProvider>

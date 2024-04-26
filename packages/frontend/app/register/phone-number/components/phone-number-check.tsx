@@ -31,6 +31,11 @@ import {
 } from "@/lib/phone-number/verify-phone";
 import { RootState } from "@/lib/stores/app-store";
 
+/**
+ * A form which lets the user pick a phone number and then enter a code which was sent to that number to verify that the number is correct
+ * 
+ * @returns A form where the user verifies the congregation phone number
+ */
 export function PhoneNumberCheck() {
   const [didSendCode, setDidSendCode] = React.useState(false);
   const [countdown, setCountdown] = React.useState(0);
