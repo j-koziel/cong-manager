@@ -20,6 +20,17 @@ const UserDashboard = dynamic(() =>
   import("./regular/dashboard").then((mod) => mod.UserDashboard),
 );
 
+/**
+ * A user dashboard where publishers can access their information,
+ * view congregation announcments and the todo features listed below
+ *
+ * @todo public witnessing scheduling feature
+ * @todo meeting duty/assignment features
+ * @todo events feature
+ * @todo other stuff which need to be planned
+ *
+ * @returns The user dashboard
+ */
 export function Dashboard() {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();

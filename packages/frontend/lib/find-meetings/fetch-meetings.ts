@@ -6,6 +6,14 @@ import { Congregation, congregationSchema } from "../types/models/congregation";
 
 const fetchMeetingsSchema = z.array(congregationSchema.passthrough());
 
+/**
+ * Fetches meetings from the JW.org API with the provided latitude and
+ * longitude values
+ *
+ * @param latitude - The latitude value to search for meetings locations
+ * @param longitude - The longitude value to search for meetings locations
+ * @returns A list of meetings (congregations)
+ */
 export async function fetchMeetings(
   latitude: number,
   longitude: number,

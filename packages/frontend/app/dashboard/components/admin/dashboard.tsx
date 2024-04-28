@@ -33,6 +33,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+/**
+ * Dashboard for admins (congregation elders)
+ *
+ * @param props - The props object
+ * @param props.currentUser - The current authenticated user
+ * @returns The admin dashboard
+ */
 export function AdminDashboard({ currentUser }: DashboardComponentProps) {
   const router = useRouter();
 

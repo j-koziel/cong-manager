@@ -26,11 +26,22 @@ import { backendErrorHandle } from "@/lib/backend-error-handle";
 import { backendRoutes } from "@/lib/config";
 import { RootState } from "@/lib/stores/app-store";
 
+/**
+ * Form schema for the link congregation form
+ */
 const linkCongregationFormSchema = z.object({
   token: z.string().min(1, "Please enter the join token."),
 });
 type LinkCongregationFormData = z.infer<typeof linkCongregationFormSchema>;
 
+/**
+ * A form to let admins link congregations. The admin provides a token which
+ * is used to verify the congregation phone number. If successful the
+ * admin is assigned the congregation in the database and can then add
+ * publishers to the congregation
+ *
+ * @returns A form
+ */
 export function LinkCongregationForm() {
   const router = useRouter();
   const form = useForm<LinkCongregationFormData>({

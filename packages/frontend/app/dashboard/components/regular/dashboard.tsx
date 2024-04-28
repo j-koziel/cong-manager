@@ -29,6 +29,13 @@ import {
 } from "@/components/ui/card";
 import { RootState } from "@/lib/stores/app-store";
 
+/**
+ * Dashboard for non-admins (regular publishers)
+ *
+ * @param props - The props object
+ * @param props.currentUser - The current authenticated user
+ * @returns The user dashboard
+ */
 export function UserDashboard({ currentUser }: DashboardComponentProps) {
   const router = useRouter();
   const state = useSelector((state: RootState) => state.dashboard);

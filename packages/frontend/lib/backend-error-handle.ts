@@ -9,9 +9,9 @@ export const backendErrorSchema = z.object({
 });
 
 /**
- * @description Handles errors thrown by Axios.
+ * Handles errors thrown by Axios.
  *
- * @param error The error to work on.
+ * @param error - The error to work on.
  *
  * @returns The error message to display to user.
  */

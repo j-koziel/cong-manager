@@ -53,6 +53,8 @@ import {
 /**
  * A card displaying all the information board items,
  * things like announcements, events and other important information.
+ *
+ * @returns Information board card
  */
 const InformationCard = () => {
   const informationBoardState = useSelector(

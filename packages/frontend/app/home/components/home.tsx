@@ -10,6 +10,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeatureItem, featureData } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
+/**
+ * The home page
+ *
+ * @todo Make this more simple
+ * @returns A home page
+ */
 export function Home() {
   const renderFeature = (item: FeatureItem, i: number) => {
     return (

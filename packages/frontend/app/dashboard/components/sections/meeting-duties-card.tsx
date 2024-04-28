@@ -11,6 +11,15 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data";
 
+/**
+ * A card which shows all the upcoming duties one may have at the meetings
+ *
+ * @todo
+ *
+ * @param props - The props object
+ * @param props.data - Placeholder data
+ * @returns
+ */
 const MeetingDutiesCard = ({
   data,
 }: {
