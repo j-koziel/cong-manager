@@ -11,6 +11,16 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data";
 
+/**
+ * A card which shows congregation events like CO visits, assemblies and
+ * conventions
+ *
+ * @todo
+ *
+ * @param props - The props object
+ * @param props.data - Placeholder dashboard data
+ * @returns
+ */
 const CongEventsCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
   return (
     <Card>

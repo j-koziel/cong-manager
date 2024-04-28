@@ -8,6 +8,13 @@ import { Congregation } from "../types/models/congregation";
 
 import { toast } from "@/components/ui/use-toast";
 
+/**
+ * Calls our API to send a verification code to the provided congregation
+ * phone number
+ *
+ * @param congregation - The congregation to verify
+ * @param phoneNumber - The phone number to send the verification code to
+ */
 export async function sendVerificationCode(
   congregation: Congregation,
   phoneNumber: string,
@@ -26,6 +33,14 @@ export async function sendVerificationCode(
   }
 }
 
+/**
+ * Makes a call to our API which actually verifies the phone number by checking
+ * the code provided.
+ *
+ * @param congregation - The congregation to verify
+ * @param userCode - The code which was provided by the user
+ * @param router - Router to redirect the user
+ */
 export async function verifyPhone(
   congregation: Congregation,
   userCode: string,

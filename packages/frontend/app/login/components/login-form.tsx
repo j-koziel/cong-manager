@@ -26,6 +26,12 @@ import {
   loginUserFormSchema,
 } from "@/lib/types/auth/user-form";
 
+/**
+ * A form which takes in email and password and redirects to the
+ * dashboard if the credentials are correct
+ *
+ * @returns A form which lets the user log in
+ */
 export function LoginForm() {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();

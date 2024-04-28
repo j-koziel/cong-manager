@@ -28,6 +28,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+/**
+ * A card which displays the authenticated users details
+ *
+ * @todo Let user update their details
+ *
+ * @param props - The props object
+ * @param props.userInfo - Object containing user information
+ * @returns
+ */
 const UserInfoCard = ({ userInfo }: { userInfo: any }) => {
   return (
     <Card>

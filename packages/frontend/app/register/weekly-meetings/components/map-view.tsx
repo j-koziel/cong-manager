@@ -25,6 +25,12 @@ L.Icon.Default.mergeOptions({
 
 const { setDisplayCongregations } = meetingsSlice.actions;
 
+/**
+ * A map displaying the selected location and markers pointing at
+ * surrounding congregations
+ *
+ * @returns A map
+ */
 export function MapView() {
   const dispatch: AppDispatch = useDispatch();
   const state = useSelector((state: RootState) => state.meetings);

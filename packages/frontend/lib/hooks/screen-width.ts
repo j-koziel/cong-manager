@@ -4,6 +4,11 @@ export interface UseScreenWidthReturn {
   isSmall: boolean;
 }
 
+/**
+ * A hook which checks whether the current screen size is small (below 640px)
+ *
+ * @returns Whether the current screen is small
+ */
 export function useScreenWidth(): UseScreenWidthReturn {
   // The value for tailwind's SM breakpoint
   const smallPx = 640;

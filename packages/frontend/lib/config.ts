@@ -1,5 +1,8 @@
 export const baseBackendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+/**
+ * API endpoints
+ */
 export const backendRoutes = {
   congregation: {
     create: baseBackendUrl + "/congregation/create",

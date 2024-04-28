@@ -34,6 +34,17 @@ import {
 
 const { updateUserCoords } = meetingsSlice.actions;
 
+/**
+ * An input field which lets the user enter a search term for a location.
+ * This then makes a request to our API which does reverse geocoding
+ * (using OpenCage™) and renders a bunch of locations
+ *
+ * @param props - The props object
+ * @param props.setUseCurrentLocation - State which updates whether the
+ * user wants to use their current location
+ * (using the browser's Geolocation API) or if they want to find a location
+ * @returns A search input field and some location cards
+ */
 export function LocationSearch({
   setUseCurrentLocation,
 }: {

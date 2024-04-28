@@ -13,6 +13,18 @@ export interface MeetingCardProps {
   animationDelay: number;
 }
 
+/**
+ * A card which shows information about a congregation
+ *
+ * @param props - The props object
+ * @param props.congregation - The congregation object
+ * @param props.isSelected - Whether a congregation is selected
+ * @param props.onSelect - Accepts a callback which runs when a congregation
+ * is selected
+ * @param props.animationDelay - The amount of milliseconds to delay the render
+ * animation of each card
+ * @returns
+ */
 export function MeetingCard({
   congregation,
   isSelected,

@@ -2,6 +2,13 @@
 
 import { motion } from "framer-motion";
 
+/**
+ * A parent component for all the dashboard cards so that they are all
+ * consistently animated
+ *
+ * @param props - The props object
+ * @returns An animation
+ */
 const AnimateCard = ({
   children,
   delay = 0,

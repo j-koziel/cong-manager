@@ -5,6 +5,11 @@ import { FooterLink, FooterLinks } from "../lib/types/footer-link";
 
 import { Separator } from "@/components/ui/separator";
 
+/**
+ * A simple footer with some links
+ *
+ * @returns The footer component
+ */
 export function Footer(): JSX.Element {
   // These should probably be retrieved automatically
   const links: FooterLinks = [

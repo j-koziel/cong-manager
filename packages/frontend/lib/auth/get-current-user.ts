@@ -7,6 +7,11 @@ import {
   userWithCongregationSchema,
 } from "../types/models/compositions";
 
+/**
+ * Gets the current user
+ *
+ * @returns The current user
+ */
 export async function getCurrentUser(): Promise<User_WithCongregation> {
   const res = await axios.get(backendRoutes.user.me, requestOptions());
   const parsedUser = userWithCongregationSchema.parse(res.data);

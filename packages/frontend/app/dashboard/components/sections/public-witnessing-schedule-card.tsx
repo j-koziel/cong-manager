@@ -25,6 +25,14 @@ function CalendarDemo() {
   );
 }
 
+/**
+ * A section where users can check and manage the public witnessing schedule.
+ *
+ * @todo let users view the schedule
+ * @todo let users book trolleys
+ *
+ * @returns The public witnessing schedule
+ */
 const PublicWitnessingCard = () => {
   return (
     <Card>
