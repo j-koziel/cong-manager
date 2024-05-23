@@ -1,4 +1,4 @@
-# cong-manager
+# cm-core
 
 Manage a congregation with ease.
 
