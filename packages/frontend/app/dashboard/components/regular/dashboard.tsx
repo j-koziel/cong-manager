@@ -58,7 +58,7 @@ export function UserDashboard({ currentUser }: DashboardComponentProps) {
     ];
 
     return (
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
+      <div className="grid grid-cols-2 grid-rows-3 lg:grid-cols-3 gap-4 mx-4">
         {renderDashboardItems.map((renderDashboardItem, i) => (
           <AnimateCard key={i} delay={i / 10}>
             {renderDashboardItem()}
