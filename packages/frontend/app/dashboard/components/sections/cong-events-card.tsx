@@ -1,3 +1,5 @@
+import { CalendarIcon } from "@radix-ui/react-icons";
+
 import ItemCards from "../item-cards";
 
 import {
@@ -23,21 +25,26 @@ import { PlaceholderDashboardData } from "@/lib/types/placeholder-dashboard-data
  */
 const CongEventsCard = ({ data }: { data: PlaceholderDashboardData[] }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Congregation Events: </CardTitle>
-        <CardDescription>Upcoming congregation events.</CardDescription>
-      </CardHeader>
-      {/* CO visits, assemblies, conventions etc */}
-      <CardContent>
-        <ScrollArea className="h-72">
-          <ItemCards data={data} />
-          <ScrollBar />
-        </ScrollArea>
+    <Card className="p-10">
+      <CardContent className="flex flex-col items-center">
+        <CalendarIcon height={48} width={48} />
+        <p className="font-bold text-center">Upcoming Events</p>
       </CardContent>
-      <CardFooter></CardFooter>
     </Card>
   );
 };
+
+// {/* <CardHeader>
+//         <CardTitle>Congregation Events: </CardTitle>
+//         <CardDescription>Upcoming congregation events.</CardDescription>
+//       </CardHeader>
+//       {/* CO visits, assemblies, conventions etc */}
+//       <CardContent>
+//         <ScrollArea className="h-72">
+//           <ItemCards data={data} />
+//           <ScrollBar />
+//         </ScrollArea>
+//       </CardContent>
+//       <CardFooter></CardFooter> */}
 
 export default CongEventsCard;

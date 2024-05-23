@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { CubeIcon } from "@radix-ui/react-icons";
+
 import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
@@ -35,20 +37,25 @@ function CalendarDemo() {
  */
 const PublicWitnessingCard = () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Public Witnessing: </CardTitle>
-        <CardDescription>Public Witnessing schedule.</CardDescription>
-      </CardHeader>
-
-      {/* Maybe a calendar where people can assign themselves trolleys for? */}
-
-      <CardContent>
-        <CalendarDemo />
+    <Card className="p-10">
+      <CardContent className="flex flex-col items-center">
+        <CubeIcon height={48} width={48} />
+        <p className="font-bold text-center">Public Witnessing</p>
       </CardContent>
-      <CardFooter></CardFooter>
     </Card>
   );
 };
+
+// <CardHeader>
+//         <CardTitle>Public Witnessing: </CardTitle>
+//         <CardDescription>Public Witnessing schedule.</CardDescription>
+//       </CardHeader>
+
+//     {/* Maybe a calendar where people can assign themselves trolleys for? */}
+
+//       <CardContent>
+//         <CalendarDemo />
+//       </CardContent>
+//       <CardFooter></CardFooter>
 
 export default PublicWitnessingCard;

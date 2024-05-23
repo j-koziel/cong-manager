@@ -1,3 +1,5 @@
+import { CheckboxIcon } from "@radix-ui/react-icons";
+
 import ItemCards from "../item-cards";
 
 import {
@@ -26,22 +28,27 @@ const MeetingDutiesCard = ({
   data: PlaceholderDashboardData[] /* | DashData[] */;
 }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Your Duties: </CardTitle>
-        <CardDescription>
-          These are your upcoming duties/assignments.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-72">
-          <ItemCards data={data} />
-          <ScrollBar />
-        </ScrollArea>
+    <Card className="p-10">
+      <CardContent className="flex flex-col items-center">
+        <CheckboxIcon height={48} width={48} />
+        <p className="font-bold text-center">Duties</p>
       </CardContent>
-      <CardFooter></CardFooter>
     </Card>
   );
 };
+
+// <CardHeader>
+//         <CardTitle>Your Duties: </CardTitle>
+//         <CardDescription>
+//           These are your upcoming duties/assignments.
+//         </CardDescription>
+//       </CardHeader>
+//       <CardContent>
+//         <ScrollArea className="h-72">
+//           <ItemCards data={data} />
+//           <ScrollBar />
+//         </ScrollArea>
+//       </CardContent>
+//       <CardFooter></CardFooter>
 
 export default MeetingDutiesCard;
