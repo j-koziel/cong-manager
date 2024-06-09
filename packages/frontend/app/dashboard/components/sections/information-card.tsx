@@ -3,6 +3,7 @@
 import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { EnvelopeOpenIcon } from "@radix-ui/react-icons";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,51 +56,63 @@ import {
  * things like announcements, events and other important information.
  *
  * @returns Information board card
+ *
+ * @todo delete everything here and redesign it to fit a whole page
+ * yay
  */
 const InformationCard = () => {
-  const informationBoardState = useSelector(
-    (state: RootState) => state.informationBoard,
-  );
-  const dashState = useSelector((state: RootState) => state.dashboard);
-
-  const form = useForm<NewInformationBoardItem>({
-    resolver: zodResolver(newInformationBoardItemFormSchema),
-    defaultValues: {
-      type: "Announcement",
-      summary: undefined,
-      congregationId: dashState.currentUser?.congregationId,
-    },
-  });
-
-  const dispatch: AppDispatch = useDispatch();
-
-  async function onSubmit(values: NewInformationBoardItem) {
-    dispatch(addInformationBoardItemThunk(values));
-    form.reset({
-      type: "Announcement",
-      summary: undefined,
-      congregationId: dashState.currentUser?.congregationId,
-    });
-  }
-
-  React.useEffect(() => {
-    dispatch(getCongInformationBoardItemsThunk());
-  }, []);
-
-  React.useEffect(() => {
-    if (informationBoardState.didError) {
-      toast({
-        title: "An error has occurred",
-        description: "The information board could not be loaded",
-        variant: "destructive",
-      });
-      return;
-    }
-  }, []);
-
   return (
-    <Card>
-      <CardHeader>
+    <Card className="p-10">
+      <CardContent className="flex flex-col items-center">
+        <EnvelopeOpenIcon height={48} width={48} />
+        <p className="font-bold text-center">Information Board</p>
+      </CardContent>
+    </Card>
+  );
+};
+
+// const informationBoardState = useSelector(
+//   (state: RootState) => state.informationBoard,
+// );
+// const dashState = useSelector((state: RootState) => state.dashboard);
+
+// const form = useForm<NewInformationBoardItem>({
+//   resolver: zodResolver(newInformationBoardItemFormSchema),
+//   defaultValues: {
+//     type: "Announcement",
+//     summary: undefined,
+//     congregationId: dashState.currentUser?.congregationId,
+//   },
+// });
+
+// const dispatch: AppDispatch = useDispatch();
+
+// async function onSubmit(values: NewInformationBoardItem) {
+//   dispatch(addInformationBoardItemThunk(values));
+//   form.reset({
+//     type: "Announcement",
+//     summary: undefined,
+//     congregationId: dashState.currentUser?.congregationId,
+//   });
+// }
+
+// React.useEffect(() => {
+//   dispatch(getCongInformationBoardItemsThunk());
+// }, []);
+
+// React.useEffect(() => {
+//   if (informationBoardState.didError) {
+//     toast({
+//       title: "An error has occurred",
+//       description: "The information board could not be loaded",
+//       variant: "destructive",
+//     });
+//     return;
+//   }
+// }, []);
+
+{
+  /* <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Information Board: </CardTitle>
@@ -139,7 +152,7 @@ const InformationCard = () => {
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select the type of information this will be" />
+    <SelectValue placeholder="Select the type of information this will be" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -164,7 +177,7 @@ const InformationCard = () => {
                           <FormControl>
                             <Input
                               type="text"
-                              placeholder="A new brother has joined our congregation..."
+                placeholder="A new brother has joined our congregation..."
                               {...field}
                             />
                           </FormControl>
@@ -195,9 +208,7 @@ const InformationCard = () => {
           <ScrollBar />
         </ScrollArea>
       </CardContent>
-      <CardFooter></CardFooter>
-    </Card>
-  );
-};
+      <CardFooter></CardFooter> */
+}
 
 export default InformationCard;
