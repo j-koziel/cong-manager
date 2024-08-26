@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/alexliesenfeld/opencage v0.2.2
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-faker/faker/v4 v4.4.1
+	github.com/go-faker/faker/v4 v4.5.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	gorm.io/datatypes v1.2.0
 	gorm.io/gorm v1.25.10
@@ -27,7 +27,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
-	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/sync v0.7.0 // indirect
 	gorm.io/driver/mysql v1.4.7 // indirect
 )
 
@@ -58,7 +58,7 @@ require (
 	golang.org/x/crypto v0.23.0
 	golang.org/x/net v0.25.0
 	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/postgres v1.5.7
